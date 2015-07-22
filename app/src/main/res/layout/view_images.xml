@@ -7,18 +7,24 @@
     android:orientation="horizontal"
     android:padding="3dp">
 
-    <TextView
-        android:textColor="#FFFFFF"
-        android:id="@+id/tvName"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="name"/>
+        android:src="@drawable/ic_action_call" />
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+91 9921237445"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/ivRemove"
-        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp"
         android:src="@drawable/abc_ic_clear_mtrl_alpha" />
 </LinearLayout>
