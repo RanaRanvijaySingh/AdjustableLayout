@@ -2,8 +2,8 @@ package rana.com.adjustablelayout;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
@@ -13,7 +13,6 @@ import java.util.List;
 public class AdjustableLayout extends LinearLayout {
 
     private List<LinearLayout> listHorizontalLayouts = new ArrayList<LinearLayout>();
-    private List<View> listPresentChilds = new ArrayList<View>();
     private int childViewWidth = 0;
 
     public AdjustableLayout(Context context) {
@@ -31,8 +30,10 @@ public class AdjustableLayout extends LinearLayout {
     @Override
     public void addView(View child) {
         this.setOrientation(VERTICAL);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(5,5,5,5);
+        child.setLayoutParams(layoutParams);
         addViewHorizontally(child);
-
     }
 
     /**
@@ -40,15 +41,11 @@ public class AdjustableLayout extends LinearLayout {
      * @param child View
      */
     private void addViewHorizontally(View child) {
-        int layoutWidth = getWidth();
-        int childCount = getChildCount();
-        Log.i("", layoutWidth + "   layoutWidth    " + childCount + "   childCount");
         if (listHorizontalLayouts.size() == 0){
             addChildInNextLayout(child);
         }else {
             setViewWidth(child);
             LinearLayout linearLayout = listHorizontalLayouts.get(listHorizontalLayouts.size()-1);
-            Log.i("", linearLayout.getWidth() + "   linearLayout.getWidth()    "+" child view width "+child.getWidth());
             if (linearLayout.getWidth() + childViewWidth > getWidth()){
                 addChildInNextLayout(child);
             }else {
@@ -89,8 +86,15 @@ public class AdjustableLayout extends LinearLayout {
             public void onGlobalLayout() {
                 child.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 childViewWidth = child.getWidth();
-                Log.i("", " child view width "+child.getWidth());
             }
         });
+    }
+
+    @Override
+    public void removeView(View view) {
+        for (int i=0;i<getChildCount();i++){
+            LinearLayout linearLayout = (LinearLayout)getChildAt(i);
+            linearLayout.removeView(view);
+        }
     }
 }

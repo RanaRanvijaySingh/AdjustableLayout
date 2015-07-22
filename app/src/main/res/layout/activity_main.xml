@@ -9,12 +9,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+    <EditText
+        android:hint="Enter name"
+        android:id="@+id/etEnterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/addNewView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickAddNewView"
-        android:text="Add new view" />
+        android:text="Add view" />
 
     <rana.com.adjustablelayout.AdjustableLayout
         android:id="@+id/container"
