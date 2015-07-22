@@ -14,7 +14,8 @@ By Extending Linear Layout and overriding addView() function , created such a la
 Using Adjustable layout.
 </br>
 In your `activity_main.xml`
-``` <rana.com.adjustablelayout.AdjustableLayout
+``` 
+<rana.com.adjustablelayout.AdjustableLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
