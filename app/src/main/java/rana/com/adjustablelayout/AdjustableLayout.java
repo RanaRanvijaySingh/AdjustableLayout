@@ -27,12 +27,21 @@ public class AdjustableLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Overriding add view.
+     * @param child Your custom view
+     */
     @Override
     public void addView(View child) {
+        //set orientation of parent layout vertical
         this.setOrientation(VERTICAL);
+
+        //Give more margin to your custom view
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(5,5,5,5);
         child.setLayoutParams(layoutParams);
+
+        //Now add your custom view horizontally in child layout
         addViewHorizontally(child);
     }
 
