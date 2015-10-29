@@ -8,13 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/etEnterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter phone number" />
+        android:hint="Enter name" />
 
     <Button
         android:id="@+id/addNewView"
