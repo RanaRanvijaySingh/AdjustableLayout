@@ -32,13 +32,14 @@ public class MainActivity extends AppCompatActivity {
     private void initializeComponents() {
         etEnterName = (EditText)findViewById(R.id.etEnterName);
         adjustableLayout = (AdjustableLayout)findViewById(R.id.container); //Custom layout file
+        addViewInALoop();
     }
 
     public void onClickAddNewView(View view){
         /**
          * User only one function at a time to view different demo.
          */
-        addChipsView();
+//        addChipsView();
 //        addRandomView();
 //        addButtons();
     }
@@ -94,6 +95,18 @@ public class MainActivity extends AppCompatActivity {
             adjustableLayout.addView(newView);
         }else {
             Toast.makeText(this,"Enter some text",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Function to add view in a loop
+     */
+    private void addViewInALoop() {
+        for (int i=0;i<=6;i++){
+            final View newView = LayoutInflater.from(this).inflate(R.layout.view_chip_text,null);
+            TextView tvName = (TextView)newView.findViewById(R.id.tvName);
+            tvName.setText("name-"+i);
+            adjustableLayout.addView(newView);
         }
     }
 }
