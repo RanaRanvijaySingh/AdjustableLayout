@@ -108,5 +108,6 @@ public class MainActivity extends AppCompatActivity {
             tvName.setText("name-"+i);
             adjustableLayout.addView(newView);
         }
+        adjustableLayout.invalidateView();
     }
 }
