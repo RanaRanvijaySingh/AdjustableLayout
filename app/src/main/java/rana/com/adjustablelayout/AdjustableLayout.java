@@ -3,6 +3,7 @@ package rana.com.adjustablelayout;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
@@ -48,9 +49,9 @@ public class AdjustableLayout extends LinearLayout {
         this.setOrientation(VERTICAL);
         listChildViews.add(child);
         //Give more margin to your custom view
-//        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        layoutParams.setMargins(5, 5, 5, 5);
-//        child.setLayoutParams(layoutParams);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(5, 5, 5, 5);
+        child.setLayoutParams(layoutParams);
 
         //Now add your custom view horizontally in child layout
 //        addViewHorizontally(child);
@@ -107,6 +108,7 @@ public class AdjustableLayout extends LinearLayout {
         LinearLayout linearLayoutFirst = createNewHorizontalLayout();
         linearLayoutFirst.addView(listChildViews.get(FIRST_ITEM));
         listHorizontalLayouts.add(linearLayoutFirst);
+        super.addView(linearLayoutFirst);
         for (int i = 1; i<listChildViews.size() ; i++) {
             LinearLayout linearLayout = listHorizontalLayouts.get(listHorizontalLayouts.size() - 1);
             int presentLayoutWidth = getWidthOf(linearLayout, i);
@@ -130,7 +132,7 @@ public class AdjustableLayout extends LinearLayout {
         int startPoint = position - 1;
         int endPoint = position - childCount;
         int layoutWidthSum = 0;
-        for (int i=startPoint; i<=endPoint; i-- ){
+        for (int i=startPoint; i>=endPoint; i-- ){
             layoutWidthSum += listChildViewWidth.get(i);
         }
         return layoutWidthSum;

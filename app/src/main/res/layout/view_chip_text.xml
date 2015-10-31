@@ -5,6 +5,7 @@
     android:background="@drawable/chips"
     android:gravity="center"
     android:orientation="horizontal"
+    android:layout_margin="10dp"
     android:padding="3dp">
 
     <TextView

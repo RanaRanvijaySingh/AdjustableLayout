@@ -102,10 +102,17 @@ public class MainActivity extends AppCompatActivity {
      * Function to add view in a loop
      */
     private void addViewInALoop() {
-        for (int i=0;i<=6;i++){
+        List<String> listString = new ArrayList<String>();
+        listString.add("this");
+        listString.add("is");
+        listString.add("how");listString.add("it");listString.add("is");listString.add("done");listString.add("this");
+        listString.add("issue");listString.add("is ");listString.add("that i am not ");listString.add("able to give");
+        listString.add("layout margin in xml");listString.add("rest");
+        listString.add("");listString.add("is good");
+        for (int i=0;i<15;i++){
             final View newView = LayoutInflater.from(this).inflate(R.layout.view_chip_text,null);
             TextView tvName = (TextView)newView.findViewById(R.id.tvName);
-            tvName.setText("name-"+i);
+            tvName.setText(listString.get(i));
             adjustableLayout.addView(newView);
         }
         adjustableLayout.invalidateView();
