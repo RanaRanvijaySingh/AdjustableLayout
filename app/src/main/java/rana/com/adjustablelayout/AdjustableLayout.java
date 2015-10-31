@@ -12,12 +12,12 @@ import java.util.List;
 
 public class AdjustableLayout extends LinearLayout {
 
-    private static final int FIRST_ITEM = 0;
     private int childViewCount = 0;
     private List<LinearLayout> listHorizontalLayouts = new ArrayList<LinearLayout>();
     private List<View> listChildViews = new ArrayList<View>();
     private List<Integer> listChildViewWidth = new ArrayList<Integer>();
     private LinearLayout tempLinearLayout;
+    private int childViewWidth;
 
     public AdjustableLayout(Context context) {
         super(context);
@@ -31,13 +31,68 @@ public class AdjustableLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    //=====================================================================================
+    //=====================================================================================
+    //======================Code for adding ONE view at a time========================
+    //=====================================================================================
+    //=====================================================================================
     /**
      * Overriding add view.
-     *
      * @param child Your custom view
      */
     @Override
     public void addView(View child) {
+        //set orientation of parent layout vertical
+        this.setOrientation(VERTICAL);
+
+        //Give more margin to your custom view
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(5,5,5,5);
+        child.setLayoutParams(layoutParams);
+
+        //Now add your custom view horizontally in child layout
+        addViewHorizontally(child);
+    }
+
+    /**
+     * Function to add view horizontally
+     * @param child View
+     */
+    private void addViewHorizontally(View child) {
+        if (listHorizontalLayouts.size() == 0){
+            addChildInNextLayout(child);
+        }else {
+            setViewWidth(child);
+            LinearLayout linearLayout = listHorizontalLayouts.get(listHorizontalLayouts.size()-1);
+            if (linearLayout.getWidth() + childViewWidth > getWidth()){
+                addChildInNextLayout(child);
+            }else {
+                linearLayout.addView(child);
+            }
+        }
+    }
+
+    /**
+     * Function to set child view width.
+     * @param child View
+     */
+    private void setViewWidth(final View child) {
+        child.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                child.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                childViewWidth = child.getWidth();
+            }
+        });
+    }
+
+    //=====================================================================================
+    //=====================================================================================
+    //======================Code for adding MULTIPLE view at a time========================
+    //=====================================================================================
+    //=====================================================================================
+
+    public void addingMultipleView(View child){
         //set orientation of parent layout vertical
         this.setOrientation(VERTICAL);
         listChildViews.add(child);
@@ -84,6 +139,9 @@ public class AdjustableLayout extends LinearLayout {
         });
     }
 
+    /**
+     * Function to add view in parent layout
+     */
     private void addViewInParent() {
         this.removeView(tempLinearLayout);
         for (int i = 0; i < listChildViews.size(); i++) {
@@ -123,30 +181,12 @@ public class AdjustableLayout extends LinearLayout {
         return layoutWidthSum;
     }
 
-    /**
-     * Function to add view horizontally
-     *
-     * @param child View
-     */
-    private void addViewHorizontally(View child) {
-        if (listHorizontalLayouts.size() == 0) {
-            addChildInNextLayout(child);
-        } else {
-            listChildViews.add(child);
-        }
-    }
+    //=====================================================================================
+    //=====================================================================================
+    //======================Common function ===============================================
+    //=====================================================================================
+    //=====================================================================================
 
-    /**
-     * Function to add child view in next layout.
-     *
-     * @param child View
-     */
-    private void addChildInNextLayout(View child) {
-        LinearLayout linearLayout = createNewHorizontalLayout();
-        linearLayout.addView(child);
-        listHorizontalLayouts.add(linearLayout);
-        super.addView(linearLayout);
-    }
 
     /**
      * Function to create new linear layout with horizontal orientation.
@@ -158,6 +198,17 @@ public class AdjustableLayout extends LinearLayout {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, LinearLayout.HORIZONTAL);
         linearLayout.setLayoutParams(layoutParams);
         return linearLayout;
+    }
+
+    /**
+     * Function to add child view in next layout.
+     * @param child View
+     */
+    private void addChildInNextLayout(View child) {
+        LinearLayout linearLayout = createNewHorizontalLayout();
+        linearLayout.addView(child);
+        listHorizontalLayouts.add(linearLayout);
+        super.addView(linearLayout);
     }
 
     @Override

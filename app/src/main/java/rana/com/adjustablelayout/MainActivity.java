@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             });
             tvName.setText(name);
             adjustableLayout.addView(newView);
-            adjustableLayout.invalidateView();
         }else {
             Toast.makeText(this,"Enter some text",Toast.LENGTH_SHORT).show();
         }
@@ -113,8 +112,15 @@ public class MainActivity extends AppCompatActivity {
         for (int i=0;i<15;i++){
             final View newView = LayoutInflater.from(this).inflate(R.layout.view_chip_text,null);
             TextView tvName = (TextView)newView.findViewById(R.id.tvName);
+            ImageView ivRemove = (ImageView)newView.findViewById(R.id.ivRemove);
+            ivRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adjustableLayout.removeView(newView);
+                }
+            });
             tvName.setText(listString.get(i));
-            adjustableLayout.addView(newView);
+            adjustableLayout.addingMultipleView(newView);
         }
         adjustableLayout.invalidateView();
     }
