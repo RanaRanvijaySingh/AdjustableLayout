@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * User only one function at a time to view different demo.
          */
-//        addChipsView();
+        addChipsView();
 //        addRandomView();
 //        addButtons();
     }
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             });
             tvName.setText(name);
             adjustableLayout.addView(newView);
+            adjustableLayout.invalidateView();
         }else {
             Toast.makeText(this,"Enter some text",Toast.LENGTH_SHORT).show();
         }

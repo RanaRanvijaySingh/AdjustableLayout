@@ -25,18 +25,11 @@ public class AdjustableLayout extends LinearLayout {
 
     public AdjustableLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-//        init(context, attrs);
     }
 
     public AdjustableLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        init(context, attrs);
     }
-
-//    private void init(Context context, AttributeSet attrs) {
-//        tempLinearLayout = createNewHorizontalLayout();
-//        super.addView(tempLinearLayout);
-//    }
 
     /**
      * Overriding add view.
@@ -52,9 +45,6 @@ public class AdjustableLayout extends LinearLayout {
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(5, 5, 5, 5);
         child.setLayoutParams(layoutParams);
-
-        //Now add your custom view horizontally in child layout
-//        addViewHorizontally(child);
     }
 
     /**
@@ -78,39 +68,33 @@ public class AdjustableLayout extends LinearLayout {
      */
     private void setViewObserver(final View childView) {
         tempLinearLayout.addView(childView);
-//        final LinearLayout linearLayout = listHorizontalLayouts.get(listHorizontalLayouts.size() - 1);
         childView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 childView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                listChildViewWidth.add(childView.getWidth());
+                int childWidth = childView.getWidth();
                 tempLinearLayout.removeView(childView);
                 if (childViewCount > listChildViews.size() - 1) {
                     addViewInParent();
                     return;
                 }
+                listChildViewWidth.add(childWidth);
                 setViewObserver(listChildViews.get(childViewCount++));
-
-
-//                int presentLayoutWidth = linearLayout.getWidth();
-//                int parentLayoutWidth = getWidth();
-//                if (presentLayoutWidth + childViewWidth > parentLayoutWidth) {
-//                    addChildInNextLayout(childView);
-//                } else {
-//                    linearLayout.addView(childView);
-//                }
             }
         });
     }
 
     private void addViewInParent() {
         this.removeView(tempLinearLayout);
-        LinearLayout linearLayoutFirst = createNewHorizontalLayout();
-        linearLayoutFirst.addView(listChildViews.get(FIRST_ITEM));
-        listHorizontalLayouts.add(linearLayoutFirst);
-        super.addView(linearLayoutFirst);
-        for (int i = 1; i<listChildViews.size() ; i++) {
-            LinearLayout linearLayout = listHorizontalLayouts.get(listHorizontalLayouts.size() - 1);
+        for (int i = 0; i < listChildViews.size(); i++) {
+            LinearLayout linearLayout;
+            if (listHorizontalLayouts.size() > 0) {
+                linearLayout = listHorizontalLayouts.get(listHorizontalLayouts.size() - 1);
+            } else {
+                linearLayout = createNewHorizontalLayout();
+                listHorizontalLayouts.add(linearLayout);
+                super.addView(linearLayout);
+            }
             int presentLayoutWidth = getWidthOf(linearLayout, i);
             int parentLayoutWidth = getWidth();
             if (presentLayoutWidth + listChildViewWidth.get(i) > parentLayoutWidth) {
@@ -123,8 +107,9 @@ public class AdjustableLayout extends LinearLayout {
 
     /**
      * Function to get layout width based on number of child it has and then width of individual chile
+     *
      * @param linearLayout LinearLayout
-     * @param position int
+     * @param position     int
      * @return int
      */
     private int getWidthOf(LinearLayout linearLayout, int position) {
@@ -132,7 +117,7 @@ public class AdjustableLayout extends LinearLayout {
         int startPoint = position - 1;
         int endPoint = position - childCount;
         int layoutWidthSum = 0;
-        for (int i=startPoint; i>=endPoint; i-- ){
+        for (int i = startPoint; i >= endPoint; i--) {
             layoutWidthSum += listChildViewWidth.get(i);
         }
         return layoutWidthSum;
@@ -148,13 +133,6 @@ public class AdjustableLayout extends LinearLayout {
             addChildInNextLayout(child);
         } else {
             listChildViews.add(child);
-//            tempLinearLayout.addView(child);
-//            setViewObserver(child);
-//            if (linearLayout.getWidth() + childViewWidth > getWidth()){
-//                addChildInNextLayout(child);
-//            }else {
-//                linearLayout.addView(child);
-//            }
         }
     }
 
