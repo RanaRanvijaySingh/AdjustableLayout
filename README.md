@@ -100,8 +100,8 @@ You need to use these two steps
 ```adjustableLayout.invalidateView();```
 
 Example
-```
-/**
+
+```/**
      * Function to add view in a loop
      */
     private void addViewInALoop() {
@@ -126,5 +126,4 @@ Example
             adjustableLayout.addingMultipleView(newView);
         }
         adjustableLayout.invalidateView();
-    }
-    ```
+    }```
