@@ -92,8 +92,8 @@ Now there are two ways you can add view.
 ```
 
 ###2. Adding multiple view in a loop.
-
-You need to use these two steps 
+ <br/>
+You need to use these two steps  <br/>
 1. To add multiple view <br/>
 ```adjustableLayout.addingMultipleView(newView);```
 2. Call invalidate function. <br/>
