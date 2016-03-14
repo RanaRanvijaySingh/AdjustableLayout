@@ -58,8 +58,13 @@ Drawable file `chips.xml`
 </shape>
 ```
 
-In your java code
+###In your java code
 
+Now there are two ways you can add view.
+####1. Adding one view at a time.
+####2. Adding multiple view in a loop.
+
+###1. Adding one view at a time.
 ```
  adjustableLayout = (AdjustableLayout)findViewById(R.id.container);
  addChipsView();
@@ -85,3 +90,40 @@ In your java code
         }
     }
 ```
+
+###2. Adding multiple view in a loop.
+ <br/>
+You need to use these two steps  <br/>
+1. To add multiple view <br/>
+```adjustableLayout.addingMultipleView(newView);```
+2. Call invalidate function. <br/>
+```adjustableLayout.invalidateView();```
+
+ <br/>Example
+
+```/**
+     * Function to add view in a loop
+     */
+    private void addViewInALoop() {
+        List<String> listString = new ArrayList<String>();
+        listString.add("this");
+        listString.add("is");
+        listString.add("how");listString.add("it");listString.add("is");listString.add("done");listString.add("this");
+        listString.add("issue");listString.add("is ");listString.add("that i am not ");listString.add("able to give");
+        listString.add("layout margin in xml");listString.add("rest");
+        listString.add("");listString.add("is good");
+        for (int i=0;i<15;i++){
+            final View newView = LayoutInflater.from(this).inflate(R.layout.view_chip_text,null);
+            TextView tvName = (TextView)newView.findViewById(R.id.tvName);
+            ImageView ivRemove = (ImageView)newView.findViewById(R.id.ivRemove);
+            ivRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adjustableLayout.removeView(newView);
+                }
+            });
+            tvName.setText(listString.get(i));
+            adjustableLayout.addingMultipleView(newView);
+        }
+        adjustableLayout.invalidateView();
+    }```
