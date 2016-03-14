@@ -14,11 +14,17 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    String news = "A letter from a man to his mother flown out of Paris by hot air balloon during" +
+            " the Prussian siege has turned up in Australia's National Archives, which said  " +
+            "today that  it was keen to know the family's fate. The Franco-Prussian War saw the " +
+            "Germans completely surround Paris for more than four months in 1870";
+    List<String> stringList = new ArrayList<>();
     private EditText etEnterName;
     private AdjustableLayout adjustableLayout; //Custom class extending Linear layout
 
@@ -30,9 +36,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
+        setStringList();
         etEnterName = (EditText)findViewById(R.id.etEnterName);
         adjustableLayout = (AdjustableLayout)findViewById(R.id.container); //Custom layout file
         addViewInALoop();
+    }
+
+    private void setStringList() {
+        String[] strings = news.split(" ");
+        stringList = new ArrayList<String>(Arrays.asList(strings));
     }
 
     public void onClickAddNewView(View view){
@@ -102,14 +114,7 @@ public class MainActivity extends AppCompatActivity {
      * Function to add view in a loop
      */
     private void addViewInALoop() {
-        List<String> listString = new ArrayList<String>();
-        listString.add("this");
-        listString.add("is");
-        listString.add("how");listString.add("it");listString.add("is");listString.add("done");listString.add("this");
-        listString.add("issue");listString.add("is ");listString.add("that i am not ");listString.add("able to give");
-        listString.add("layout margin in xml");listString.add("rest");
-        listString.add("");listString.add("is good");
-        for (int i=0;i<15;i++){
+        for (int i=0;i<stringList.size();i++){
             final View newView = LayoutInflater.from(this).inflate(R.layout.view_chip_text,null);
             TextView tvName = (TextView)newView.findViewById(R.id.tvName);
             ImageView ivRemove = (ImageView)newView.findViewById(R.id.ivRemove);
@@ -119,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     adjustableLayout.removeView(newView);
                 }
             });
-            tvName.setText(listString.get(i));
+            tvName.setText(stringList.get(i));
             adjustableLayout.addingMultipleView(newView);
         }
         adjustableLayout.invalidateView();

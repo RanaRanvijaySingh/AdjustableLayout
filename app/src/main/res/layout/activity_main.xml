@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +9,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/etEnterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter name" />
+        android:hint="Enter name"/>
 
     <Button
         android:id="@+id/addNewView"
@@ -24,11 +24,17 @@
         android:background="#555555"
         android:onClick="onClickAddNewView"
         android:text="Add view"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"/>
 
-    <rana.com.adjustablelayout.AdjustableLayout
-        android:id="@+id/container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
+        <rana.com.adjustablelayout.AdjustableLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+    </ScrollView>
 </LinearLayout>

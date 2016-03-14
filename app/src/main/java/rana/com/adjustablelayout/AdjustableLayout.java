@@ -127,7 +127,7 @@ public class AdjustableLayout extends LinearLayout {
             @Override
             public void onGlobalLayout() {
                 childView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                int childWidth = childView.getWidth();
+                int childWidth = childView.getMeasuredWidth() + 20;
                 tempLinearLayout.removeView(childView);
                 if (childViewCount > listChildViews.size() - 1) {
                     addViewInParent();
@@ -154,8 +154,8 @@ public class AdjustableLayout extends LinearLayout {
                 super.addView(linearLayout);
             }
             int presentLayoutWidth = getWidthOf(linearLayout, i);
-            int parentLayoutWidth = getWidth();
-            if (presentLayoutWidth + listChildViewWidth.get(i) > parentLayoutWidth) {
+            int parentLayoutWidth = getWidth() - 5;
+            if (presentLayoutWidth + listChildViewWidth.get(i) + 10 > parentLayoutWidth) {
                 addChildInNextLayout(listChildViews.get(i));
             } else {
                 linearLayout.addView(listChildViews.get(i));
