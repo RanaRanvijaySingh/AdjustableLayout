@@ -51,9 +51,14 @@ public class MainActivity extends AppCompatActivity {
         /**
          * User only one function at a time to view different demo.
          */
-        addChipsView();
+        addViewInALoop();
+//        addChipsView();
 //        addRandomView();
 //        addButtons();
+    }
+
+    public void onClickRemoveView(View view){
+        adjustableLayout.removeAllViews();
     }
 
     /**

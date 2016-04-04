@@ -25,6 +25,14 @@
         android:onClick="onClickAddNewView"
         android:text="Add view"
         android:textColor="#ffffff"/>
+    <Button
+        android:id="@+id/addRemoveView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#555555"
+        android:onClick="onClickRemoveView"
+        android:text="Add view"
+        android:textColor="#ffffff"/>
 
     <ScrollView
         android:layout_width="match_parent"
