@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * User only one function at a time to view different demo.
          */
-        addViewInALoop();
-//        addChipsView();
+        addChipsView();
 //        addRandomView();
 //        addButtons();
     }
